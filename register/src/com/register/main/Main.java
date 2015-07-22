@@ -36,11 +36,9 @@ public class Main {
 		System.out.println("Item " + requestedItemId2 + ": "
 				+ inventory[requestedItemId2 - 1]);
 		
-		
 		float price = inventory[requestedItemId - 1].price;
 		float price2 = inventory[requestedItemId2 - 1].price;
 		float total = price + price2;
-		
 		
 		System.out.println("your total for today is $" + total);
 	}
