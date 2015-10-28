@@ -1,0 +1,5 @@
+#itemId	description	centsPrice	unit unitcount
+72635	apple	1.13	lb	1
+28847	beanie weenies	.99	oz	16
+28799	ground beef	6.99	lb 1
+
