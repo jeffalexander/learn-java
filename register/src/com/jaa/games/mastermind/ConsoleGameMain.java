@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Feature Requests
  * - 4 or 5 pin games
- * - undo?
+ * - undo? aka 'are you sure?'
  * - auto-generate secret code for single player
  * 
  * - computer played games
@@ -17,6 +17,7 @@ import java.util.List;
  * 			- brute force?
  * 			- find color then position
  * 			- find position then color (is this possible?)
+ * 			- shift left strategy
  * 		- different algorithm goals: fastest time vs less guesses
  * 		- super hard games of 10 or 1000 color codes of long lengths
  * 

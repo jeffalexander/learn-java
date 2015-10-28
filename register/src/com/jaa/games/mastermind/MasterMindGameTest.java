@@ -7,7 +7,6 @@ import static com.jaa.games.mastermind.CodePin.WHITE;
 import static com.jaa.games.mastermind.CodePin.YELLOW;
 import static org.junit.Assert.*;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Before;
@@ -56,7 +55,7 @@ public class MasterMindGameTest {
 		givenSecretCode(GREEN, BLUE, WHITE, ORANGE);
 		keys = givenGuess(YELLOW, GREEN, BLUE, YELLOW);
 		thenTheCodeIsNotFoundYet();
-		thenExpect(2).whitePin();
+		thenExpect(2).whitePins();
 		thenExpect(0).redPins();
 	}
 	
@@ -65,7 +64,7 @@ public class MasterMindGameTest {
 		givenSecretCode(GREEN, BLUE, WHITE, ORANGE);
 		keys = givenGuess(YELLOW, GREEN, BLUE, WHITE);
 		thenTheCodeIsNotFoundYet();
-		thenExpect(3).whitePin();
+		thenExpect(3).whitePins();
 		thenExpect(0).redPins();
 	}
 	
@@ -74,7 +73,7 @@ public class MasterMindGameTest {
 		givenSecretCode(GREEN, BLUE, WHITE, ORANGE);
 		keys = givenGuess(ORANGE, GREEN, BLUE, WHITE);
 		thenTheCodeIsNotFoundYet();
-		thenExpect(4).whitePin();
+		thenExpect(4).whitePins();
 		thenExpect(0).redPins();
 	}
 	
@@ -93,7 +92,7 @@ public class MasterMindGameTest {
 		keys = givenGuess(GREEN, BLUE, YELLOW, YELLOW);
 		thenTheCodeIsNotFoundYet();
 		thenExpect(0).whitePins();
-		thenExpect(2).redPin();
+		thenExpect(2).redPins();
 	}
 	
 	@Test
@@ -106,7 +105,7 @@ public class MasterMindGameTest {
 	}
 	
 	@Test
-	public void testGuessForCodeWithDuples() {
+	public void testGuessForCodeWithDupes() {
 		givenSecretCode(WHITE, WHITE, GREEN, ORANGE);
 		keys = givenGuess(BLUE, YELLOW, GREEN, WHITE);
 		thenTheCodeIsNotFoundYet();
@@ -114,12 +113,30 @@ public class MasterMindGameTest {
 		thenExpect(1).redPin();
 	}
 	
+	@Test
+	public void testGuessWithDupesForSimpleCode() {
+		givenSecretCode(WHITE, BLUE, GREEN, ORANGE);
+		keys = givenGuess(BLUE, WHITE, GREEN, WHITE);
+		thenTheCodeIsNotFoundYet();
+		thenExpect(2).whitePins();
+		thenExpect(1).redPin();
+	}
+	
+	@Test
+	public void testJeffGuess() {
+		givenSecretCode(GREEN, GREEN, GREEN, GREEN);
+		keys = givenGuess(GREEN, GREEN, GREEN, GREEN);
+		thenTheCodeHasBeenFound();
+		thenExpect(0).whitePins();
+		thenExpect(4).redPins();
+	}
+	
 	private List<KeyPin> givenGuess(CodePin... guess) {
 		return game.guess(guess);
 	}
 	
 	private void givenSecretCode(CodePin... pins) {
-		game.newGame(Arrays.asList(pins));
+		game.newGame(pins);
 	}
 	
 	private void thenTheCodeHasBeenFound() {
