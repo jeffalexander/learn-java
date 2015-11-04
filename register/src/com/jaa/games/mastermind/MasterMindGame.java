@@ -8,9 +8,12 @@ import java.util.List;
 public class MasterMindGame {
 
 	private List<CodePin> secretCode;
+	private RoundHistory roundHistory;
 	
-	public void newGame(CodePin... secretCode) {
-		this.secretCode = Arrays.asList(secretCode);
+	public void newGame(CodePin... secretCodeArgs) {
+		secretCode = Arrays.asList(secretCodeArgs);
+		roundHistory = new RoundHistory();
+		roundHistory.setMaxMoves(10);
 	}
 	
 	public List<KeyPin> guess(CodePin... guessArgs) {
@@ -49,11 +52,21 @@ public class MasterMindGame {
 		}
 		
 		Collections.shuffle(outcome);
+		
+		Move move = new Move();
+		move.setAttempt(guess);
+		move.setResponse(outcome);
+		roundHistory.addMove(move);
 		return outcome;
 	}
 	
+	// TODO this is part of RoundHistory now... clean up
 	public boolean codeFound(List<KeyPin> outcome) {
 		int redCount = KeyPin.count(KeyPin.RED, outcome);
 		return redCount == secretCode.size();
+	}
+
+	public boolean isGameOver() {
+		return roundHistory.isComplete();
 	}
 }

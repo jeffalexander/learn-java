@@ -3,7 +3,7 @@ package com.jaa.games.mastermind;
 import static com.jaa.games.mastermind.CodePin.BLUE;
 import static com.jaa.games.mastermind.CodePin.GREEN;
 import static com.jaa.games.mastermind.CodePin.ORANGE;
-import static com.jaa.games.mastermind.CodePin.WHITE;
+import static com.jaa.games.mastermind.CodePin.BLACK;
 import static com.jaa.games.mastermind.CodePin.YELLOW;
 import static com.jaa.games.mastermind.CodePin.PURPLE;
 import static org.junit.Assert.*;
@@ -26,8 +26,8 @@ public class MasterMindGameTest {
 	
 	@Test
 	public void testCorrectGuess() {
-		givenSecretCodeOf(GREEN, BLUE, WHITE, ORANGE);
-		keys = givenGuess(GREEN, BLUE, WHITE, ORANGE);
+		givenSecretCodeOf(GREEN, BLUE, BLACK, ORANGE);
+		keys = givenGuess(GREEN, BLUE, BLACK, ORANGE);
 		thenTheCodeHasBeenFound();
 		thenExpect(0).whitePins();
 		thenExpect(4).redPins();
@@ -35,7 +35,7 @@ public class MasterMindGameTest {
 	
 	@Test
 	public void testCompletelyWrongGuess() {
-		givenSecretCodeOf(GREEN, BLUE, WHITE, ORANGE);
+		givenSecretCodeOf(GREEN, BLUE, BLACK, ORANGE);
 		keys = givenGuess(YELLOW, YELLOW, YELLOW, YELLOW);
 		thenTheCodeIsNotFoundYet();
 		thenExpect(0).whitePins();
@@ -44,7 +44,7 @@ public class MasterMindGameTest {
 	
 	@Test
 	public void testGuessWithOneCorrectColor() {
-		givenSecretCodeOf(GREEN, BLUE, WHITE, ORANGE);
+		givenSecretCodeOf(GREEN, BLUE, BLACK, ORANGE);
 		keys = givenGuess(YELLOW, GREEN, YELLOW, YELLOW);
 		thenTheCodeIsNotFoundYet();
 		thenExpect(1).whitePin();
@@ -53,7 +53,7 @@ public class MasterMindGameTest {
 	
 	@Test
 	public void testGuessWithTwoCorrectColor() {
-		givenSecretCodeOf(GREEN, BLUE, WHITE, ORANGE);
+		givenSecretCodeOf(GREEN, BLUE, BLACK, ORANGE);
 		keys = givenGuess(YELLOW, GREEN, BLUE, YELLOW);
 		thenTheCodeIsNotFoundYet();
 		thenExpect(2).whitePins();
@@ -62,8 +62,8 @@ public class MasterMindGameTest {
 	
 	@Test
 	public void testGuessWithThreeCorrectColor() {
-		givenSecretCodeOf(GREEN, BLUE, WHITE, ORANGE);
-		keys = givenGuess(YELLOW, GREEN, BLUE, WHITE);
+		givenSecretCodeOf(GREEN, BLUE, BLACK, ORANGE);
+		keys = givenGuess(YELLOW, GREEN, BLUE, BLACK);
 		thenTheCodeIsNotFoundYet();
 		thenExpect(3).whitePins();
 		thenExpect(0).redPins();
@@ -71,8 +71,8 @@ public class MasterMindGameTest {
 	
 	@Test
 	public void testGuessWithFourCorrectColor() {
-		givenSecretCodeOf(GREEN, BLUE, WHITE, ORANGE);
-		keys = givenGuess(ORANGE, GREEN, BLUE, WHITE);
+		givenSecretCodeOf(GREEN, BLUE, BLACK, ORANGE);
+		keys = givenGuess(ORANGE, GREEN, BLUE, BLACK);
 		thenTheCodeIsNotFoundYet();
 		thenExpect(4).whitePins();
 		thenExpect(0).redPins();
@@ -80,7 +80,7 @@ public class MasterMindGameTest {
 	
 	@Test
 	public void testGuessWithOneCorrectColorAndPosition() {
-		givenSecretCodeOf(GREEN, BLUE, WHITE, ORANGE);
+		givenSecretCodeOf(GREEN, BLUE, BLACK, ORANGE);
 		keys = givenGuess(GREEN, YELLOW, YELLOW, YELLOW);
 		thenTheCodeIsNotFoundYet();
 		thenExpect(0).whitePins();
@@ -89,7 +89,7 @@ public class MasterMindGameTest {
 	
 	@Test
 	public void testGuessWithTwoCorrectColorAndPosition() {
-		givenSecretCodeOf(GREEN, BLUE, WHITE, ORANGE);
+		givenSecretCodeOf(GREEN, BLUE, BLACK, ORANGE);
 		keys = givenGuess(GREEN, BLUE, YELLOW, YELLOW);
 		thenTheCodeIsNotFoundYet();
 		thenExpect(0).whitePins();
@@ -98,8 +98,8 @@ public class MasterMindGameTest {
 	
 	@Test
 	public void testGuessWithThreeCorrectColorAndPosition() {
-		givenSecretCodeOf(GREEN, BLUE, WHITE, ORANGE);
-		keys = givenGuess(GREEN, BLUE, WHITE, YELLOW);
+		givenSecretCodeOf(GREEN, BLUE, BLACK, ORANGE);
+		keys = givenGuess(GREEN, BLUE, BLACK, YELLOW);
 		thenTheCodeIsNotFoundYet();
 		thenExpect(0).whitePins();
 		thenExpect(3).redPin();
@@ -107,8 +107,8 @@ public class MasterMindGameTest {
 	
 	@Test
 	public void testGuessForCodeWithDupes() {
-		givenSecretCodeOf(WHITE, WHITE, GREEN, ORANGE);
-		keys = givenGuess(BLUE, YELLOW, GREEN, WHITE);
+		givenSecretCodeOf(BLACK, BLACK, GREEN, ORANGE);
+		keys = givenGuess(BLUE, YELLOW, GREEN, BLACK);
 		thenTheCodeIsNotFoundYet();
 		thenExpect(1).whitePins();
 		thenExpect(1).redPin();
@@ -116,8 +116,8 @@ public class MasterMindGameTest {
 	
 	@Test
 	public void testGuessWithDupesForSimpleCode() {
-		givenSecretCodeOf(WHITE, BLUE, GREEN, ORANGE);
-		keys = givenGuess(BLUE, WHITE, GREEN, WHITE);
+		givenSecretCodeOf(BLACK, BLUE, GREEN, ORANGE);
+		keys = givenGuess(BLUE, BLACK, GREEN, BLACK);
 		thenTheCodeIsNotFoundYet();
 		thenExpect(2).whitePins();
 		thenExpect(1).redPin();
@@ -135,7 +135,7 @@ public class MasterMindGameTest {
 	@Test
 	public void testSimplestCodeEver() {
 		givenSecretCodeOf(GREEN);
-		keys = givenGuess(WHITE);
+		keys = givenGuess(BLACK);
 		thenTheCodeIsNotFoundYet();
 		thenExpect(0).whitePins();
 		thenExpect(0).redPins();
@@ -143,11 +143,18 @@ public class MasterMindGameTest {
 	
 	@Test
 	public void testCodeWithLength7() {
-		givenSecretCodeOf(WHITE, BLUE, GREEN, ORANGE, BLUE, PURPLE, YELLOW);
-		keys = givenGuess(BLUE, WHITE, GREEN, WHITE, BLUE, PURPLE, YELLOW);
+		givenSecretCodeOf(BLACK, BLUE, GREEN, ORANGE, BLUE, PURPLE, YELLOW);
+		keys = givenGuess(BLUE, BLACK, GREEN, BLACK, BLUE, PURPLE, YELLOW);
 		thenTheCodeIsNotFoundYet();
 		thenExpect(2).whitePins();
 		thenExpect(4).redPin();
+	}
+	
+	@Test
+	public void testGameNotOver() {
+		givenSecretCodeOf(BLACK, BLUE, GREEN, ORANGE);
+		keys = givenGuess(BLUE, BLACK, GREEN, BLACK);
+		assertTrue(!game.isGameOver());
 	}
 	
 	private List<KeyPin> givenGuess(CodePin... guess) {

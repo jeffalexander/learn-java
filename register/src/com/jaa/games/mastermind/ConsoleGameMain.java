@@ -27,11 +27,11 @@ public class ConsoleGameMain {
 	
 	public static void main(String[] args) {
 		MasterMindGame game = new MasterMindGame();
-		game.newGame(GREEN, BLUE, WHITE, ORANGE);
+		game.newGame(GREEN, BLUE, BLACK, ORANGE);
 
 		List<KeyPin> outcome = null;
 //		do {
-			outcome = game.guess(PURPLE, BLUE, WHITE, YELLOW);
+			outcome = game.guess(PURPLE, BLUE, BLACK, YELLOW);
 //		} while (game.codeFound(outcome));
 	}
 }
