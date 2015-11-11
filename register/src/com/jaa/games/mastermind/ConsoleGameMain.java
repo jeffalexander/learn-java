@@ -31,7 +31,7 @@ public class ConsoleGameMain {
 
 		List<KeyPin> outcome = null;
 //		do {
-			outcome = game.guess(PURPLE, BLUE, BLACK, YELLOW);
+			outcome = game.submitAttempt(PURPLE, BLUE, BLACK, YELLOW);
 //		} while (game.codeFound(outcome));
 	}
 }
