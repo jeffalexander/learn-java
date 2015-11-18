@@ -35,4 +35,17 @@ public class MasterMindGame {
 	public boolean isGameOver() {
 		return roundHistory.isComplete();
 	}
+	
+	public int getSecretCodeLength(){
+		return secretCode.size();
+	}
+
+	public List<KeyPin> submitAttempt(List<CodePin> attempt) {
+		CodePin[] array = attempt.toArray(new CodePin[attempt.size()]);
+		return  submitAttempt(array);
+	}
+
+	public RoundHistory getHistory() {
+		return roundHistory;
+	}
 }
