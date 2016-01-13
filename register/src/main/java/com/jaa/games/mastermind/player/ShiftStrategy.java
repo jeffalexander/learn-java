@@ -53,6 +53,7 @@ public class ShiftStrategy {
 	private void learn() {
 		
 		// foreach move
+			// learn with focused view of current move
 			// compare current move to remaining moves
 			// exclude current move
 			// recurse

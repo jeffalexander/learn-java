@@ -12,7 +12,6 @@ public class HavocInvocationHandler implements InvocationHandler {
         this.obj = obj;
     }
 	
-	@Override
 	public Object invoke(Object proxy, Method method, Object[] args)
 			throws Throwable {
 		Method realMethod = obj.getClass().getMethod(method.getName(), method.getParameterTypes());
