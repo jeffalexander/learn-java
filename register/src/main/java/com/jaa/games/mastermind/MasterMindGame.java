@@ -9,11 +9,15 @@ public class MasterMindGame {
 	private List<CodePin> secretCode;
 	private RoundHistory roundHistory;
 	private AttemptEngine attemptEngine = new AttemptEngine();
-	
-	public void newGame(CodePin... secretCodeArgs) {
-		secretCode = Arrays.asList(secretCodeArgs);
+
+	public void newGame(List<CodePin> secretCode) {
+		this.secretCode = secretCode;
 		roundHistory = new RoundHistory();
 		roundHistory.setMaxMoves(10);
+	}
+	
+	public void newGame(CodePin... secretCodeArgs) {
+		newGame(Arrays.asList(secretCodeArgs));
 	}
 	
 	public List<KeyPin> submitAttempt(CodePin... attemptArgs) {
@@ -42,7 +46,7 @@ public class MasterMindGame {
 
 	public List<KeyPin> submitAttempt(List<CodePin> attempt) {
 		CodePin[] array = attempt.toArray(new CodePin[attempt.size()]);
-		return  submitAttempt(array);
+		return submitAttempt(array);
 	}
 
 	public RoundHistory getHistory() {

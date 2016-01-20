@@ -17,6 +17,8 @@ public class AttemptEngine {
 			throw new IllegalArgumentException("Attempt must have same number of pins as secret code.");
 		}
 		
+		// todo ja; this concept of an outcome/response should not be a list
+		// it should be a Response object with a count of whites and red key pins.
 		List<KeyPin> outcome = new ArrayList<KeyPin>();
 		List<Integer> excludedSecretCodePositions = new ArrayList<Integer>();
 		
