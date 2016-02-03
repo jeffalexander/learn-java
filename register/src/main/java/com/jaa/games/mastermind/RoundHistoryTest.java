@@ -1,14 +1,12 @@
 package com.jaa.games.mastermind;
 
+import static com.jaa.games.mastermind.CodePin.BLACK;
 import static com.jaa.games.mastermind.CodePin.BLUE;
 import static com.jaa.games.mastermind.CodePin.GREEN;
 import static com.jaa.games.mastermind.CodePin.ORANGE;
-import static com.jaa.games.mastermind.CodePin.BLACK;
-import static com.jaa.games.mastermind.CodePin.YELLOW;
 import static com.jaa.games.mastermind.CodePin.PURPLE;
-import static com.jaa.games.mastermind.KeyPin.WHITE;
-import static com.jaa.games.mastermind.KeyPin.RED;
-import static org.junit.Assert.*;
+import static com.jaa.games.mastermind.CodePin.YELLOW;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
 import java.util.List;
@@ -29,7 +27,8 @@ public class RoundHistoryTest {
 	public void testIsCompleteWithWinningCompleteGame() {
 		givenMove()
 			.withAttempt(BLUE, GREEN, ORANGE, YELLOW)
-			.andResponse(RED, RED, RED, RED);
+			.withRedCount(4)
+			.build();
 		thenTheRoundIsComplete();
 	}
 
@@ -38,11 +37,15 @@ public class RoundHistoryTest {
 		history.setMaxMoves(2);
 		givenMove()
 			.withAttempt(BLUE, GREEN, ORANGE, YELLOW)
-			.andResponse(WHITE, WHITE, RED);
+			.withRedCount(1)
+			.withWhiteCount(2)
+			.build();
 		
 		givenMove()
 			.withAttempt(BLUE, GREEN, PURPLE, YELLOW)
-			.andResponse(WHITE, WHITE, RED);
+			.withRedCount(1)
+			.withWhiteCount(2)
+			.build();
 		
 		thenTheRoundIsComplete();
 	}
@@ -52,11 +55,15 @@ public class RoundHistoryTest {
 		history.setMaxMoves(3);
 		givenMove()
 			.withAttempt(BLUE, GREEN, BLACK, YELLOW)
-			.andResponse(WHITE, WHITE, RED);
+			.withRedCount(1)
+			.withWhiteCount(2)
+			.build();
 		
 		givenMove()
 			.withAttempt(BLUE, GREEN, ORANGE, YELLOW)
-			.andResponse(WHITE, WHITE, RED);
+			.withRedCount(1)
+			.withWhiteCount(2)
+			.build();
 		
 		thenTheRoundIsInComplete();
 	}
@@ -69,18 +76,30 @@ public class RoundHistoryTest {
 	
 	private class MoveBuilder {
 		private List<CodePin> attempt;
+		private int redCount;
+		private int whiteCount;
 
 		public MoveBuilder withAttempt(CodePin... attempt) {
 			this.attempt = Arrays.asList(attempt);
 			return this;
 		}
 		
-		public MoveBuilder andResponse(KeyPin... response) {
+		public MoveBuilder withRedCount(int redCount) {
+			this.redCount = redCount;
+			return this;
+		}
+		
+		public MoveBuilder withWhiteCount(int whiteCount) {
+			this.whiteCount = whiteCount;
+			return this;
+		}
+		
+		public Move build() {
 			Move move = new Move();
 			move.setAttempt(attempt);
-			move.setResponse(response);
+			move.setResponse(redCount, whiteCount);
 			history.addMove(move);
-			return this;
+			return move;
 		}
 	}
 	

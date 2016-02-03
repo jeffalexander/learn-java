@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.jaa.games.mastermind.CodePin;
-import com.jaa.games.mastermind.KeyPin;
 import com.jaa.games.mastermind.MasterMindGame;
 import com.jaa.games.mastermind.Move;
+import com.jaa.games.mastermind.Response;
 
 /**
  * 
@@ -20,7 +20,7 @@ import com.jaa.games.mastermind.Move;
 public class ShiftStrategy {
 	
 	public boolean play(MasterMindGame game) {
-		List<KeyPin> finalOutcome = new ArrayList<KeyPin>();
+		Response finalOutcome = new Response(0, 0);
 		
 		doTheShift(game);
 		
@@ -42,7 +42,7 @@ public class ShiftStrategy {
 		learn();
 	}
 
-	private List<KeyPin> submitAttempt(MasterMindGame game) {
+	private Response submitAttempt(MasterMindGame game) {
 		CodePin attemptArgs = createAttempt();
 		return game.submitAttempt(attemptArgs);
 	}

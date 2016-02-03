@@ -9,6 +9,8 @@ public class RoundHistory {
 	
 	private List<Move> moves = new ArrayList<Move>();
 
+	//TODO add constructor for free cucumber conversion
+	
 	public List<Move> getMoves() {
 		return moves;
 	}
@@ -30,8 +32,7 @@ public class RoundHistory {
 		if(latestMove == null) {
 			return false;
 		}
-		List<KeyPin> response = latestMove.getResponse();
-		if(codeFound(response)) {
+		if(codeFound(latestMove.getResponse())) {
 			return true;
 		} else {
 			return isOutOfMoves();
@@ -50,13 +51,12 @@ public class RoundHistory {
 		return getMoves().get(moveCount - 1);
 	}
 	
-	public boolean codeFound(List<KeyPin> outcome) {
-		int redCount = KeyPin.count(KeyPin.RED, outcome);
-		return redCount == getCodeLength();
+	public boolean codeFound(Response response) {
+		return response.getRedCount() == getCodeLength();
 	}
 
 	/**
-	 * assume all attempts are proper length and match 
+	 * FIXME assume all attempts are proper length and match 
 	 * the secret code length
 	 */
 	private int getCodeLength() {

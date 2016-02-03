@@ -2,7 +2,6 @@ package com.jaa.games.mastermind;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -10,17 +9,16 @@ import java.util.List;
  */
 public class AttemptEngine {
 
-	public List<KeyPin> validate(List<CodePin> secretCode, CodePin... attemptArgs) {
+	public Response validate(List<CodePin> secretCode, CodePin... attemptArgs) {
 		List<CodePin> attempt = Arrays.asList(attemptArgs);
 		
 		if(secretCode.size() != attempt.size()) {
 			throw new IllegalArgumentException("Attempt must have same number of pins as secret code.");
 		}
 		
-		// todo ja; this concept of an outcome/response should not be a list
-		// it should be a Response object with a count of whites and red key pins.
-		List<KeyPin> outcome = new ArrayList<KeyPin>();
 		List<Integer> excludedSecretCodePositions = new ArrayList<Integer>();
+		int redCount = 0;
+		int whiteCount = 0;
 		
 		for (int attemptPosition = 0; attemptPosition < attempt.size(); attemptPosition++) {
 			CodePin attemptPin = attempt.get(attemptPosition);
@@ -36,18 +34,20 @@ public class AttemptEngine {
 				boolean colorMatches = attemptPin.equals(secretCodePin);
 				
 				if(positionMatches && colorMatches) {
-					outcome.add(KeyPin.RED);
+					redCount++;
 					excludedSecretCodePositions.add(secretCodePosition);
 					break;
 				} else if(colorMatches) {
-					outcome.add(KeyPin.WHITE);
+					// TODO FIXME peekAhead() OR redo algorithm to find reds, then whites
+					// if current attempt color is in secret code [currentattempt color is in attemp
+					
+					whiteCount++;
 					excludedSecretCodePositions.add(secretCodePosition);
 					break;
 				}
 			}
 		}
 		
-		Collections.shuffle(outcome);
-		return outcome;
+		return new Response(redCount, whiteCount);
 	}
 }

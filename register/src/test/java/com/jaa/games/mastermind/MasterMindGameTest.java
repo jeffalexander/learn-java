@@ -1,14 +1,13 @@
 package com.jaa.games.mastermind;
 
+import static com.jaa.games.mastermind.CodePin.BLACK;
 import static com.jaa.games.mastermind.CodePin.BLUE;
 import static com.jaa.games.mastermind.CodePin.GREEN;
 import static com.jaa.games.mastermind.CodePin.ORANGE;
-import static com.jaa.games.mastermind.CodePin.BLACK;
-import static com.jaa.games.mastermind.CodePin.YELLOW;
 import static com.jaa.games.mastermind.CodePin.PURPLE;
-import static org.junit.Assert.*;
-
-import java.util.List;
+import static com.jaa.games.mastermind.CodePin.YELLOW;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -16,64 +15,64 @@ import org.junit.Test;
 public class MasterMindGameTest {
 	
 	private MasterMindGame game;
-	private List<KeyPin> keys;
+	private Response response;
 
 	@Before
 	public void setup() {
 		game = new MasterMindGame();
-		keys = null;
+		response = null;
 	}
 	
 	@Test
 	public void testCorrectGuess() {
 		givenSecretCodeOf(GREEN, BLUE, BLACK, ORANGE);
-		keys = givenGuess(GREEN, BLUE, BLACK, ORANGE);
+		response = givenGuess(GREEN, BLUE, BLACK, ORANGE);
 		thenTheCodeHasBeenFound();
 	}
 	
 	@Test
 	public void testCompletelyWrongGuess() {
 		givenSecretCodeOf(GREEN, BLUE, BLACK, ORANGE);
-		keys = givenGuess(YELLOW, YELLOW, YELLOW, YELLOW);
+		response = givenGuess(YELLOW, YELLOW, YELLOW, YELLOW);
 		thenTheCodeIsNotFoundYet();
 	}
 	
 	@Test
 	public void testGuessWithFourCorrectColor() {
 		givenSecretCodeOf(GREEN, BLUE, BLACK, ORANGE);
-		keys = givenGuess(ORANGE, GREEN, BLUE, BLACK);
+		response = givenGuess(ORANGE, GREEN, BLUE, BLACK);
 		thenTheCodeIsNotFoundYet();
 	}
 	
 	@Test
 	public void testJeffGuess() {
 		givenSecretCodeOf(GREEN, GREEN, GREEN, GREEN);
-		keys = givenGuess(GREEN, GREEN, GREEN, GREEN);
+		response = givenGuess(GREEN, GREEN, GREEN, GREEN);
 		thenTheCodeHasBeenFound();
 	}
 
 	@Test
 	public void testSimplestCodeEver() {
 		givenSecretCodeOf(GREEN);
-		keys = givenGuess(BLACK);
+		response = givenGuess(BLACK);
 		thenTheCodeIsNotFoundYet();
 	}
 	
 	@Test
 	public void testCodeWithLength7() {
 		givenSecretCodeOf(BLACK, BLUE, GREEN, ORANGE, BLUE, PURPLE, YELLOW);
-		keys = givenGuess(BLUE, BLACK, GREEN, BLACK, BLUE, PURPLE, YELLOW);
+		response = givenGuess(BLUE, BLACK, GREEN, BLACK, BLUE, PURPLE, YELLOW);
 		thenTheCodeIsNotFoundYet();
 	}
 	
 	@Test
 	public void testGameNotOver() {
 		givenSecretCodeOf(BLACK, BLUE, GREEN, ORANGE);
-		keys = givenGuess(BLUE, BLACK, GREEN, BLACK);
+		response = givenGuess(BLUE, BLACK, GREEN, BLACK);
 		assertTrue(!game.isGameOver());
 	}
 	
-	private List<KeyPin> givenGuess(CodePin... guess) {
+	private Response givenGuess(CodePin... guess) {
 		return game.submitAttempt(guess);
 	}
 	
@@ -82,12 +81,12 @@ public class MasterMindGameTest {
 	}
 	
 	private void thenTheCodeHasBeenFound() {
-		boolean codeFound = game.codeFound(keys);
+		boolean codeFound = game.codeFound(response);
 		assertTrue(codeFound);
 	}
 	
 	private void thenTheCodeIsNotFoundYet() {
-		boolean codeFound = game.codeFound(keys);
+		boolean codeFound = game.codeFound(response);
 		assertTrue(!codeFound);
 	}
 	
@@ -100,14 +99,14 @@ public class MasterMindGameTest {
 			return whitePin();
 		}
 		int whitePin() {
-			assertEquals(expectedCount, KeyPin.count(KeyPin.WHITE, keys));
+			assertEquals(expectedCount, response.getWhiteCount());
 			return expectedCount;
 		}
 		int redPins() {
 			return redPin();
 		}
 		int redPin() {
-			assertEquals(expectedCount, KeyPin.count(KeyPin.RED, keys));
+			assertEquals(expectedCount, response.getRedCount());
 			return expectedCount;
 		}
 	}

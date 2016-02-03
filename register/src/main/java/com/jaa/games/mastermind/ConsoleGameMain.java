@@ -29,7 +29,7 @@ public class ConsoleGameMain {
 		MasterMindGame game = new MasterMindGame();
 		game.newGame(GREEN, BLUE, BLACK, ORANGE);
 
-		List<KeyPin> outcome = null;
+		Response outcome = null;
 //		do {
 			outcome = game.submitAttempt(PURPLE, BLUE, BLACK, YELLOW);
 //		} while (game.codeFound(outcome));

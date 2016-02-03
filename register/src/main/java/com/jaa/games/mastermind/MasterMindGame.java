@@ -1,7 +1,6 @@
 package com.jaa.games.mastermind;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public class MasterMindGame {
@@ -19,21 +18,23 @@ public class MasterMindGame {
 	public void newGame(CodePin... secretCodeArgs) {
 		newGame(Arrays.asList(secretCodeArgs));
 	}
+
+	public Response submitAttempt(List<CodePin> attempt) {
+		CodePin[] array = attempt.toArray(new CodePin[attempt.size()]);
+		return submitAttempt(array);
+	}
 	
-	public List<KeyPin> submitAttempt(CodePin... attemptArgs) {
-		List<KeyPin> response = attemptEngine.validate(secretCode, attemptArgs);
-		Collections.shuffle(response);
+	public Response submitAttempt(CodePin... attemptArgs) {
+		Response response = attemptEngine.validate(secretCode, attemptArgs);
 		Move move = new Move();
-		move.setAttempt(attemptArgs);
+		move.setAttempt(Arrays.asList(attemptArgs));
 		move.setResponse(response);
 		roundHistory.addMove(move);
 		return response;
 	}
 	
-	// TODO this is part of RoundHistory now... clean up
-	public boolean codeFound(List<KeyPin> outcome) {
-		int redCount = KeyPin.count(KeyPin.RED, outcome);
-		return redCount == secretCode.size();
+	public boolean codeFound(Response response) {
+		return roundHistory.codeFound(response);
 	}
 	
 	public boolean isGameOver() {
@@ -42,11 +43,6 @@ public class MasterMindGame {
 	
 	public int getSecretCodeLength(){
 		return secretCode.size();
-	}
-
-	public List<KeyPin> submitAttempt(List<CodePin> attempt) {
-		CodePin[] array = attempt.toArray(new CodePin[attempt.size()]);
-		return submitAttempt(array);
 	}
 
 	public RoundHistory getHistory() {

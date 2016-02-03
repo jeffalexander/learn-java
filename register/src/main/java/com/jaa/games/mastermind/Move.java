@@ -7,7 +7,7 @@ import java.util.List;
 public class Move {
 	
 	private List<CodePin> attempt = new ArrayList<CodePin>();
-	private List<KeyPin> response = new ArrayList<KeyPin>();
+	private Response response;
 	// TODO add time of guess
 	
 	public List<CodePin> getAttempt() {
@@ -18,19 +18,51 @@ public class Move {
 		this.attempt = attempt;
 	}
 
-	public void setAttempt(CodePin... attempt) {
-		this.attempt = Arrays.asList(attempt);		
-	}
-
-	public List<KeyPin> getResponse() {
+	public Response getResponse() {
 		return response;
 	}
 
-	public void setResponse(List<KeyPin> response) {
+	public void setResponse(Response response) {
 		this.response = response;
 	}
 
-	public void setResponse(KeyPin... response) {
-		this.response = Arrays.asList(response);
+	public void setResponse(int redCount, int whiteCount) {
+		this.response = new Response(redCount, whiteCount);
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((attempt == null) ? 0 : attempt.hashCode());
+		result = prime * result + ((response == null) ? 0 : response.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Move other = (Move) obj;
+		if (attempt == null) {
+			if (other.attempt != null)
+				return false;
+		} else if (!attempt.equals(other.attempt))
+			return false;
+		if (response == null) {
+			if (other.response != null)
+				return false;
+		} else if (!response.equals(other.response))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return String.format("Move [attempt=%s, response=%s]", attempt, response);
 	}
 }
