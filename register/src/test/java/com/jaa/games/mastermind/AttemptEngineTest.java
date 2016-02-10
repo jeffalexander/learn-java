@@ -29,7 +29,7 @@ public class AttemptEngineTest {
 	@Test
 	public void testCorrectAttempt() {
 		givenSecretCodeOf(GREEN, BLUE, BLACK, ORANGE);
-		response = givenAttempt(GREEN, BLUE, BLACK, ORANGE);
+		givenAttempt(GREEN, BLUE, BLACK, ORANGE);
 		thenExpect(0).whitePins();
 		thenExpect(4).redPins();
 	}
@@ -37,7 +37,7 @@ public class AttemptEngineTest {
 	@Test
 	public void testCompletelyWrongAttempt() {
 		givenSecretCodeOf(GREEN, BLUE, BLACK, ORANGE);
-		response = givenAttempt(YELLOW, YELLOW, YELLOW, YELLOW);
+		givenAttempt(YELLOW, YELLOW, YELLOW, YELLOW);
 		thenExpect(0).whitePins();
 		thenExpect(0).redPins();
 	}
@@ -45,7 +45,7 @@ public class AttemptEngineTest {
 	@Test
 	public void testAttemptWithOneCorrectColor() {
 		givenSecretCodeOf(GREEN, BLUE, BLACK, ORANGE);
-		response = givenAttempt(YELLOW, GREEN, YELLOW, YELLOW);
+		givenAttempt(YELLOW, GREEN, YELLOW, YELLOW);
 		thenExpect(1).whitePin();
 		thenExpect(0).redPins();
 	}
@@ -53,7 +53,7 @@ public class AttemptEngineTest {
 	@Test
 	public void testAttemptWithTwoCorrectColor() {
 		givenSecretCodeOf(GREEN, BLUE, BLACK, ORANGE);
-		response = givenAttempt(YELLOW, GREEN, BLUE, YELLOW);
+		givenAttempt(YELLOW, GREEN, BLUE, YELLOW);
 		thenExpect(2).whitePins();
 		thenExpect(0).redPins();
 	}
@@ -61,7 +61,7 @@ public class AttemptEngineTest {
 	@Test
 	public void testAttemptWithThreeCorrectColor() {
 		givenSecretCodeOf(GREEN, BLUE, BLACK, ORANGE);
-		response = givenAttempt(YELLOW, GREEN, BLUE, BLACK);
+		givenAttempt(YELLOW, GREEN, BLUE, BLACK);
 		thenExpect(3).whitePins();
 		thenExpect(0).redPins();
 	}
@@ -69,7 +69,7 @@ public class AttemptEngineTest {
 	@Test
 	public void testAttemptWithFourCorrectColor() {
 		givenSecretCodeOf(GREEN, BLUE, BLACK, ORANGE);
-		response = givenAttempt(ORANGE, GREEN, BLUE, BLACK);
+		givenAttempt(ORANGE, GREEN, BLUE, BLACK);
 		thenExpect(4).whitePins();
 		thenExpect(0).redPins();
 	}
@@ -77,7 +77,7 @@ public class AttemptEngineTest {
 	@Test
 	public void testAttemptWithOneCorrectColorAndPosition() {
 		givenSecretCodeOf(GREEN, BLUE, BLACK, ORANGE);
-		response = givenAttempt(GREEN, YELLOW, YELLOW, YELLOW);
+		givenAttempt(GREEN, YELLOW, YELLOW, YELLOW);
 		thenExpect(0).whitePins();
 		thenExpect(1).redPin();
 	}
@@ -85,7 +85,7 @@ public class AttemptEngineTest {
 	@Test
 	public void testAttemptWithTwoCorrectColorAndPosition() {
 		givenSecretCodeOf(GREEN, BLUE, BLACK, ORANGE);
-		response = givenAttempt(GREEN, BLUE, YELLOW, YELLOW);
+		givenAttempt(GREEN, BLUE, YELLOW, YELLOW);
 		thenExpect(0).whitePins();
 		thenExpect(2).redPins();
 	}
@@ -93,23 +93,23 @@ public class AttemptEngineTest {
 	@Test
 	public void testAttemptWithThreeCorrectColorAndPosition() {
 		givenSecretCodeOf(GREEN, BLUE, BLACK, ORANGE);
-		response = givenAttempt(GREEN, BLUE, BLACK, YELLOW);
+		givenAttempt(GREEN, BLUE, BLACK, YELLOW);
 		thenExpect(0).whitePins();
 		thenExpect(3).redPin();
 	}
 	
 	@Test
 	public void testAttemptForCodeWithDupes() {
-		givenSecretCodeOf(BLACK, BLACK, GREEN, ORANGE);
-		response = givenAttempt(BLUE, YELLOW, GREEN, BLACK);
-		thenExpect(1).whitePins();
+		givenSecretCodeOf(BLACK, BLACK,  GREEN, ORANGE);
+		givenAttempt     (BLUE,  YELLOW, GREEN, BLACK);
+		thenExpect(1).whitePin();
 		thenExpect(1).redPin();
 	}
 	
 	@Test
 	public void testAttemptWithDupesForSimpleCode() {
 		givenSecretCodeOf(BLACK, BLUE, GREEN, ORANGE);
-		response = givenAttempt(BLUE, BLACK, GREEN, BLACK);
+		givenAttempt(BLUE, BLACK, GREEN, BLACK);
 		thenExpect(2).whitePins();
 		thenExpect(1).redPin();
 	}
@@ -117,7 +117,7 @@ public class AttemptEngineTest {
 	@Test
 	public void testJeffAttempt() {
 		givenSecretCodeOf(GREEN, GREEN, GREEN, GREEN);
-		response = givenAttempt(GREEN, GREEN, GREEN, GREEN);
+		givenAttempt(GREEN, GREEN, GREEN, GREEN);
 		thenExpect(0).whitePins();
 		thenExpect(4).redPins();
 	}
@@ -125,7 +125,7 @@ public class AttemptEngineTest {
 	@Test
 	public void testSimplestCodeEver() {
 		givenSecretCodeOf(GREEN);
-		response = givenAttempt(BLACK);
+		givenAttempt(BLACK);
 		thenExpect(0).whitePins();
 		thenExpect(0).redPins();
 	}
@@ -133,13 +133,29 @@ public class AttemptEngineTest {
 	@Test
 	public void testCodeWithLength7() {
 		givenSecretCodeOf(BLACK, BLUE, GREEN, ORANGE, BLUE, PURPLE, YELLOW);
-		response = givenAttempt(BLUE, BLACK, GREEN, BLACK, BLUE, PURPLE, YELLOW);
+		givenAttempt(BLUE, BLACK, GREEN, BLACK, BLUE, PURPLE, YELLOW);
 		thenExpect(2).whitePins();
 		thenExpect(4).redPin();
 	}
 	
+	@Test
+	public void testCodeWithDuplicateToVerifyWhiteNotCountedAsRed() {
+		givenSecretCodeOf(BLACK,  BLUE,  YELLOW, YELLOW);
+		givenAttempt     (YELLOW, BLACK, BLUE,   YELLOW);
+		thenExpect(3).whitePins();
+		thenExpect(1).redPin();
+	}
+	
+	@Test
+	public void testAttemptWithDuplicateColorToVerifyWhiteNotCountedAsRed() {
+		givenSecretCodeOf(BLUE,  GREEN,  ORANGE, PURPLE);
+		givenAttempt     (GREEN, ORANGE, PURPLE, PURPLE);
+		thenExpect(2).whitePins();
+		thenExpect(1).redPin();
+	}
+	
 	private Response givenAttempt(CodePin... attempt) {
-		return attempEngine.validate(secretCode, attempt);
+		return response = attempEngine.validate(secretCode, attempt);
 	}
 	
 	private void givenSecretCodeOf(CodePin... pins) {

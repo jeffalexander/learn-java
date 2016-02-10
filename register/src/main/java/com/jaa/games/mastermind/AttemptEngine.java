@@ -38,11 +38,14 @@ public class AttemptEngine {
 					excludedSecretCodePositions.add(secretCodePosition);
 					break;
 				} else if(colorMatches) {
-					// TODO FIXME peekAhead() OR redo algorithm to find reds, then whites
-					// if current attempt color is in secret code [currentattempt color is in attemp
-					
-					whiteCount++;
-					excludedSecretCodePositions.add(secretCodePosition);
+					// FIXME this peekAhead() seems odd. Perhaps redo algorithm to find reds, then whites
+					if(attempt.get(secretCodePosition).equals(secretCodePin)) {
+						redCount++;
+						excludedSecretCodePositions.add(secretCodePosition);
+					} else {
+						whiteCount++;
+						excludedSecretCodePositions.add(secretCodePosition);
+					}
 					break;
 				}
 			}
