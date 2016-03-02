@@ -9,7 +9,7 @@ Feature: Starting a game
     
   Scenario: New games have no history
     Then the game should have no history
-
+    
   Scenario Outline: testing an attempt
     Given the secret code <secret>
     When the attempt is <attempt>
@@ -37,3 +37,5 @@ Feature: Starting a game
     | GREEN, ORANGE, PURPLE, PURPLE | 1 				| 2						|
     | GREEN, ORANGE, PURPLE, BLUE   | 0 				| 4						|
     | BLUE,  GREEN,  ORANGE, PURPLE | 4					| 0						|
+
+  Scenario: 

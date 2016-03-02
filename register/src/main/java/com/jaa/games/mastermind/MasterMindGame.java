@@ -37,6 +37,10 @@ public class MasterMindGame {
 		return roundHistory.codeFound(response);
 	}
 	
+	public boolean youWonGame() {
+		return roundHistory.codeFound(roundHistory.getLatestMove().getResponse());
+	}
+	
 	public boolean isGameOver() {
 		return roundHistory.isComplete();
 	}
@@ -47,5 +51,9 @@ public class MasterMindGame {
 
 	public RoundHistory getHistory() {
 		return roundHistory;
+	}
+
+	public List<CodePin> getSecretCode() {
+		return secretCode;
 	}
 }

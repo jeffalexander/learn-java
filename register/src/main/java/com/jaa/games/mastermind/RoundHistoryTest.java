@@ -1,7 +1,7 @@
 package com.jaa.games.mastermind;
 
 import static com.jaa.games.mastermind.CodePin.BLACK;
-import static com.jaa.games.mastermind.CodePin.BLUE;
+import static com.jaa.games.mastermind.CodePin.TEAL;
 import static com.jaa.games.mastermind.CodePin.GREEN;
 import static com.jaa.games.mastermind.CodePin.ORANGE;
 import static com.jaa.games.mastermind.CodePin.PURPLE;
@@ -26,7 +26,7 @@ public class RoundHistoryTest {
 	@Test
 	public void testIsCompleteWithWinningCompleteGame() {
 		givenMove()
-			.withAttempt(BLUE, GREEN, ORANGE, YELLOW)
+			.withAttempt(TEAL, GREEN, ORANGE, YELLOW)
 			.withRedCount(4)
 			.build();
 		thenTheRoundIsComplete();
@@ -36,13 +36,13 @@ public class RoundHistoryTest {
 	public void testIsCompleteWithLostCompleteGame() {
 		history.setMaxMoves(2);
 		givenMove()
-			.withAttempt(BLUE, GREEN, ORANGE, YELLOW)
+			.withAttempt(TEAL, GREEN, ORANGE, YELLOW)
 			.withRedCount(1)
 			.withWhiteCount(2)
 			.build();
 		
 		givenMove()
-			.withAttempt(BLUE, GREEN, PURPLE, YELLOW)
+			.withAttempt(TEAL, GREEN, PURPLE, YELLOW)
 			.withRedCount(1)
 			.withWhiteCount(2)
 			.build();
@@ -54,13 +54,13 @@ public class RoundHistoryTest {
 	public void testIsCompleteWithInCompleteGame() {
 		history.setMaxMoves(3);
 		givenMove()
-			.withAttempt(BLUE, GREEN, BLACK, YELLOW)
+			.withAttempt(TEAL, GREEN, BLACK, YELLOW)
 			.withRedCount(1)
 			.withWhiteCount(2)
 			.build();
 		
 		givenMove()
-			.withAttempt(BLUE, GREEN, ORANGE, YELLOW)
+			.withAttempt(TEAL, GREEN, ORANGE, YELLOW)
 			.withRedCount(1)
 			.withWhiteCount(2)
 			.build();

@@ -1,7 +1,7 @@
 package com.jaa.games.mastermind.player;
 
 import static com.jaa.games.mastermind.CodePin.BLACK;
-import static com.jaa.games.mastermind.CodePin.BLUE;
+import static com.jaa.games.mastermind.CodePin.TEAL;
 import static com.jaa.games.mastermind.CodePin.GREEN;
 import static com.jaa.games.mastermind.CodePin.ORANGE;
 import static com.jaa.games.mastermind.CodePin.PURPLE;
@@ -37,7 +37,7 @@ public class ShiftStrategyTest {
 		RoundHistory history = game.getHistory();
 		assertEquals(Arrays.asList(GREEN, BLACK, PURPLE, YELLOW), history.getMoves().get(0).getAttempt());
 		assertEquals(Arrays.asList(BLACK, PURPLE, YELLOW, ORANGE), history.getMoves().get(1).getAttempt());
-		assertEquals(Arrays.asList(PURPLE, YELLOW, ORANGE, BLUE), history.getMoves().get(2).getAttempt());
+		assertEquals(Arrays.asList(PURPLE, YELLOW, ORANGE, TEAL), history.getMoves().get(2).getAttempt());
 		assertTrue(!gameWon);
 	}
 }

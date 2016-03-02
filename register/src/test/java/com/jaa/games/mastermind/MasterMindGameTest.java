@@ -1,7 +1,7 @@
 package com.jaa.games.mastermind;
 
 import static com.jaa.games.mastermind.CodePin.BLACK;
-import static com.jaa.games.mastermind.CodePin.BLUE;
+import static com.jaa.games.mastermind.CodePin.TEAL;
 import static com.jaa.games.mastermind.CodePin.GREEN;
 import static com.jaa.games.mastermind.CodePin.ORANGE;
 import static com.jaa.games.mastermind.CodePin.PURPLE;
@@ -25,22 +25,22 @@ public class MasterMindGameTest {
 	
 	@Test
 	public void testCorrectGuess() {
-		givenSecretCodeOf(GREEN, BLUE, BLACK, ORANGE);
-		response = givenGuess(GREEN, BLUE, BLACK, ORANGE);
+		givenSecretCodeOf(GREEN, TEAL, BLACK, ORANGE);
+		response = givenGuess(GREEN, TEAL, BLACK, ORANGE);
 		thenTheCodeHasBeenFound();
 	}
 	
 	@Test
 	public void testCompletelyWrongGuess() {
-		givenSecretCodeOf(GREEN, BLUE, BLACK, ORANGE);
+		givenSecretCodeOf(GREEN, TEAL, BLACK, ORANGE);
 		response = givenGuess(YELLOW, YELLOW, YELLOW, YELLOW);
 		thenTheCodeIsNotFoundYet();
 	}
 	
 	@Test
 	public void testGuessWithFourCorrectColor() {
-		givenSecretCodeOf(GREEN, BLUE, BLACK, ORANGE);
-		response = givenGuess(ORANGE, GREEN, BLUE, BLACK);
+		givenSecretCodeOf(GREEN, TEAL, BLACK, ORANGE);
+		response = givenGuess(ORANGE, GREEN, TEAL, BLACK);
 		thenTheCodeIsNotFoundYet();
 	}
 	
@@ -60,15 +60,15 @@ public class MasterMindGameTest {
 	
 	@Test
 	public void testCodeWithLength7() {
-		givenSecretCodeOf(BLACK, BLUE, GREEN, ORANGE, BLUE, PURPLE, YELLOW);
-		response = givenGuess(BLUE, BLACK, GREEN, BLACK, BLUE, PURPLE, YELLOW);
+		givenSecretCodeOf(BLACK, TEAL, GREEN, ORANGE, TEAL, PURPLE, YELLOW);
+		response = givenGuess(TEAL, BLACK, GREEN, BLACK, TEAL, PURPLE, YELLOW);
 		thenTheCodeIsNotFoundYet();
 	}
 	
 	@Test
 	public void testGameNotOver() {
-		givenSecretCodeOf(BLACK, BLUE, GREEN, ORANGE);
-		response = givenGuess(BLUE, BLACK, GREEN, BLACK);
+		givenSecretCodeOf(BLACK, TEAL, GREEN, ORANGE);
+		response = givenGuess(TEAL, BLACK, GREEN, BLACK);
 		assertTrue(!game.isGameOver());
 	}
 	

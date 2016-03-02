@@ -1,6 +1,6 @@
 package com.jaa.games.mastermind;
 
-import static com.jaa.games.mastermind.CodePin.BLUE;
+import static com.jaa.games.mastermind.CodePin.TEAL;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
@@ -25,7 +25,7 @@ public class GameStepDefinitions {
 	
 	@Given("^a secret code$")
 	public void a_secret_code() {
-		secretCode = Arrays.asList(new CodePin[] {BLUE, BLUE, BLUE, BLUE});
+		secretCode = Arrays.asList(new CodePin[] {TEAL, TEAL, TEAL, TEAL});
 	}
 
 	@When("^a new game is started$")

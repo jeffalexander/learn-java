@@ -43,7 +43,7 @@ public class RoundHistory {
 		return getMaxMoves() == getMoves().size();
 	}
 	
-	private Move getLatestMove() {
+	public Move getLatestMove() {
 		int moveCount = getMoves().size();
 		if(moveCount < 1) {
 			return null;
